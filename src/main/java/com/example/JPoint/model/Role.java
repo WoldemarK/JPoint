@@ -1,32 +1,46 @@
 package com.example.JPoint.model;
 
-//import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public enum Role {
-    USER,
-    ADMIN,
-    OPERATOR
+import javax.persistence.*;
 
-//    USER(Set.of(Permission.USER_READ)),
-//    ADMIN(Set.of(Permission.USER_READ, Permission.USER_WRITE)),
-//    OPERATOR(Set.of(Permission.USER_READ, Permission.USER_WRITE));
-//    private final Set<Permission> permissions;
-//
-//    Role(Set<Permission> permissions) {
-//        this.permissions = permissions;
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "role")
+public class Role { //implements GrantedAuthority
+    private static final String ADMIN = "ADMIN";
+    private static final String EMPLOYEE = "EMPLOYEE";
+    private static final String CLIENT = "CLIENT";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "custom")
+    private boolean isCustom;
+
+    @Column(name = "isACTIVE")
+    private boolean isACTIVE;
+
+    public Role(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.isCustom = true;
+        this.isACTIVE = true;
+    }
+
+
+//    @Override
+//    public String getAuthority() {
+//        return String.format("ROLE_%s", name);
 //    }
-//
-//    public Set<Permission> getPermissions() {
-//        return permissions;
-//    }
-//
-//    public Set<SimpleGrantedAuthority> getAuthorities() {
-//        return getPermissions().stream()
-//                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
-//                .collect(Collectors.toSet());
-//    }
-
 }

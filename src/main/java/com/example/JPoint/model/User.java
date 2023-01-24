@@ -1,30 +1,34 @@
 package com.example.JPoint.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
-
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "users")
+@NoArgsConstructor
 public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "email")
+    @Email
+    private String login;
+    @Column(name = "password")
+    private String password;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "password")
-    private String password;
     @Column(name = "year_of_birth")
     private String birth;
     @Column(name = "phone_number")
@@ -32,18 +36,19 @@ public class User {
     @Email
     @Column(name = "email")
     private String email;
-    @Column(name = "role")
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
-    @Column(name = "post")
-    @Enumerated(value = EnumType.STRING)
-    private Post post;
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "status_role")
-    private StatusRole statusRole;
-    @Column(name = "departament")
-    @Enumerated(value = EnumType.STRING)
-    private Departament departament;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Department> department;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Post> post;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns =
+    @JoinColumn(name = "users_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> role;
+    @Column(name = "isProject")
+    private boolean isProject;
+    @Column(name = "isTask")
+    private boolean isTask;
     @CreationTimestamp
     @Column(name = "creation")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -53,41 +58,39 @@ public class User {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime update;
 
+//    @Override
+//    @JsonIgnore
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return getRoles();
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return login;
+//    }
+//
+//    @Override
+//    @JsonIgnore
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    @JsonIgnore
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    @Override
+//    @JsonIgnore
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    @JsonIgnore
+//    public boolean isEnabled() {
+//        return true;
+//    }
 
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String phoneNumber,
-                String email, Role role, Post post, StatusRole statusRole,
-                Departament departament) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.role = role;
-        this.post = post;
-        this.statusRole = statusRole;
-        this.departament = departament;
-        this.creation = LocalDateTime.now();
-        this.update = LocalDateTime.now();
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", year_of_birth='" + birth + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                ", post=" + post +
-                ", statusRole=" + statusRole +
-                ", departament=" + departament +
-                ", creation=" + creation +
-                ", update=" + update +
-                '}';
-    }
 }

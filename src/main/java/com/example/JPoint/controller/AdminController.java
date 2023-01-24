@@ -1,5 +1,6 @@
 package com.example.JPoint.controller;
 
+import com.example.JPoint.dto.AdminDto;
 import com.example.JPoint.model.User;
 import com.example.JPoint.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,8 +16,8 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("/get")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> userList = adminService.getAllUsers();
+    public ResponseEntity<List<AdminDto>> getAllUsers() {
+        List<AdminDto> userList = adminService.getAllUsers();
         return ResponseEntity.ok(userList);
     }
 
@@ -28,12 +28,12 @@ public class AdminController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Optional<User>> update(@RequestBody User user, @PathVariable("id") Long id) {
+    public ResponseEntity<AdminDto> update(@RequestBody User user, @PathVariable("id") Long id) {
         return ResponseEntity.ok(adminService.update(user, id));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> getUsersById(@PathVariable("id") Long id) {
+    public ResponseEntity<AdminDto> getUsersById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(adminService.getUsersById(id));
     }
 
@@ -42,3 +42,4 @@ public class AdminController {
         adminService.delete(id);
     }
 }
+
