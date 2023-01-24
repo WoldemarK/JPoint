@@ -28,7 +28,16 @@ public class Company {
     private String description;
     @Column(name = "company_type")
     @OneToMany(mappedBy = "company")
-    private List<TypeCompany> typeCompany;
+    private List<TypeCompany> typeCompanies;
+
+    public void addTypeCompany(TypeCompany typeCompany) {
+        if (typeCompanies == null) {
+            typeCompanies = new ArrayList<>();
+        }
+        typeCompanies.add(typeCompany);
+        typeCompany.setCompany(this);
+    }
+
     @Column(name = "website")
     private String website;
     @Column(name = "address")
@@ -51,12 +60,12 @@ public class Company {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime update;
 
-    public Company(String name, String description, TypeCompany typeCompany,
+    public Company(String name, String description, TypeCompany typeCompanies,
                    String website, String address, String phoneNumber, String email,
                    User users, LocalDateTime creation, LocalDateTime update) {
         this.name = name;
         this.description = description;
-        this.typeCompany = new ArrayList<>();
+        this.typeCompanies = new ArrayList<>();
         this.website = website;
         this.address = address;
         this.phoneNumber = phoneNumber;

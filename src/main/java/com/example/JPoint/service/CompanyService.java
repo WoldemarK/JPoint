@@ -1,7 +1,7 @@
 package com.example.JPoint.service;
 
 import com.example.JPoint.model.Company;
-import com.example.JPoint.repository.ClientRepository;
+import com.example.JPoint.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +10,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ClientService {
-    private final ClientRepository clientRepository;
+public class CompanyService {
+    private final CompanyRepository companyRepository;
 
     public List<Company> getAllClients() {
-        return clientRepository.findAll();
+        return companyRepository.findAll();
     }
     public Optional<Company> findById(Long id){
-        return clientRepository.findById(id);
+        return companyRepository.findById(id);
     }
 }

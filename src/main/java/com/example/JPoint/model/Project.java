@@ -24,12 +24,6 @@ public class Project {
     private String nameProject;
     @Column(name = "description")
     private String description;
-    @CreationTimestamp
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime creation;
-    @UpdateTimestamp
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime update;
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "users_id", referencedColumnName = "id")
@@ -38,4 +32,10 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "company_id",referencedColumnName = "id")
     private Company company;
+    @CreationTimestamp
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime creation;
+    @UpdateTimestamp
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime update;
 }

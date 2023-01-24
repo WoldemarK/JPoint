@@ -3,12 +3,12 @@ package com.example.JPoint.dto;
 import com.example.JPoint.model.Department;
 import com.example.JPoint.model.Post;
 import com.example.JPoint.model.Role;
+
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Set;
 

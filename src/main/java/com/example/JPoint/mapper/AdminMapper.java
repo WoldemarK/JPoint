@@ -10,16 +10,18 @@ public class AdminMapper {
     public AdminDto convertUserToDto(User user) {
         AdminDto dto = AdminDto.builder()
                 .id(user.getId())
+                .login(user.getLogin())
+                .password(user.getPassword())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-                .password(user.getPassword())
                 .birth(user.getBirth())
                 .phoneNumber(user.getPhoneNumber())
                 .email(user.getEmail())
-                .role(user.getRole())
-                .post(user.getPost())
-                .statusRole(user.getStatusRole())
-                .department(user.getDepartment())
+                .department(user.getDepartments())
+                .post(user.getPosts())
+                .role(user.getRoles())
+                .isProject(user.isProject())
+                .isTask(user.isTask())
                 .creation(user.getCreation())
                 .update(user.getUpdate())
                 .build();
@@ -27,22 +29,26 @@ public class AdminMapper {
     }
 
     public User convertDtoToUser(AdminDto dto) {
-        User user = new User();
-        user.setId(dto.getId());
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
-        user.setPassword(dto.getPassword());
-        user.setBirth(dto.getBirth());
-        user.setPhoneNumber(dto.getPhoneNumber());
-        user.setEmail(dto.getEmail());
-        user.setRole(dto.getRole());
-        user.setPost(dto.getPost());
-        user.setStatusRole(dto.getStatusRole());
-        user.setDepartment(dto.getDepartment());
-        user.setCreation(dto.getCreation());
-        user.setUpdate(dto.getUpdate());
-        return user;
+        User user = User.builder()
+                .id(dto.getId())
+                .login(dto.getLogin())
+                .password(dto.getPassword())
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
+                .birth(dto.getBirth())
+                .phoneNumber(dto.getPhoneNumber())
+                .email(dto.getEmail())
+                .departments(dto.getDepartment())
+                .posts(dto.getPost())
+                .roles(dto.getRole())
+                .isProject(dto.isProject())
+                .isTask(dto.isTask())
+                .creation(dto.getCreation())
+                .update(dto.getUpdate())
+                .build();
 
+        return user;
     }
+
 
 }

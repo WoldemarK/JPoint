@@ -8,20 +8,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
+@Builder
 @Data
+@AllArgsConstructor
 @Table(name = "users")
-@NoArgsConstructor
 public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "email")
     @Email
+    @Column(name = "login")
     private String login;
     @Column(name = "password")
     private String password;
@@ -33,22 +33,20 @@ public class User {
     private String birth;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Email
+
     @Column(name = "email")
     private String email;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-    private List<Department> department;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-    private List<Post> post;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns =
     @JoinColumn(name = "users_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> role;
-    @Column(name = "isProject")
+    private Collection<Role> roles;
+    @Column(name = "is_project")
     private boolean isProject;
-    @Column(name = "isTask")
+    @Column(name = "is_task")
     private boolean isTask;
+
     @CreationTimestamp
     @Column(name = "creation")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -57,8 +55,39 @@ public class User {
     @Column(name = "update")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime update;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Department> departments;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Post> posts;
 
-//    @Override
+    public void addRol(Role role) {
+        if (roles == null) {
+            roles = new ArrayList<>();
+        }
+        roles.add(role);
+
+    }
+
+    public void addDepartment(Department department) {
+        if (departments == null) {
+            departments = new ArrayList<>();
+        }
+        departments.add(department);
+        department.setUser(this);
+    }
+
+    public void addPost(Post post) {
+        if (posts == null) {
+            posts = new ArrayList<>();
+        }
+        posts.add(post);
+        post.setUser(this);
+    }
+
+    public User() {
+    }
+
+    //    @Override
 //    @JsonIgnore
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
 //        return getRoles();
