@@ -1,14 +1,17 @@
 package com.example.JPoint.mapper;
 
 import com.example.JPoint.dto.AdminDto;
+import com.example.JPoint.model.Role;
 import com.example.JPoint.model.User;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @Component
 public class AdminMapper {
 
     public AdminDto convertUserToDto(User user) {
-        AdminDto dto = AdminDto.builder()
+       return AdminDto.builder()
                 .id(user.getId())
                 .login(user.getLogin())
                 .password(user.getPassword())
@@ -19,17 +22,16 @@ public class AdminMapper {
                 .email(user.getEmail())
                 .department(user.getDepartments())
                 .post(user.getPosts())
-                .role(user.getRoles())
+                .role((Set<Role>) user.getRoles())
                 .isProject(user.isProject())
                 .isTask(user.isTask())
                 .creation(user.getCreation())
                 .update(user.getUpdate())
                 .build();
-        return dto;
     }
 
     public User convertDtoToUser(AdminDto dto) {
-        User user = User.builder()
+      return User.builder()
                 .id(dto.getId())
                 .login(dto.getLogin())
                 .password(dto.getPassword())
@@ -46,9 +48,5 @@ public class AdminMapper {
                 .creation(dto.getCreation())
                 .update(dto.getUpdate())
                 .build();
-
-        return user;
     }
-
-
 }

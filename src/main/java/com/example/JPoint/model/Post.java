@@ -1,18 +1,18 @@
 package com.example.JPoint.model;
-import lombok.*;
-import javax.persistence.*;
 
+import lombok.Data;
+
+import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "post")
-@RequiredArgsConstructor
 public class Post {
     private static final String DIRECTOR = "DIRECTOR";
     private static final String MANAGER = "MANAGER";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
@@ -24,4 +24,12 @@ public class Post {
     @JoinColumn(name = "users_id")
     private User user;
 
+    public Post(String name, String description, boolean isCustom) {
+        this.name = name;
+        this.description = description;
+        this.isCustom = isCustom;
+    }
+
+    public Post() {
+    }
 }
