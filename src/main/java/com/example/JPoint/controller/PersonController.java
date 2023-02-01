@@ -24,11 +24,21 @@ public class PersonController {
         return new ResponseEntity<>(people, HttpStatus.OK);
     }
 
-    @PostMapping("/create/{depId}")
+    @PostMapping("/create/{depId}/dep")
     public ResponseEntity<Person> createPersonAndDepartment(@RequestBody Person _person, @PathVariable("depId") Long depId) {
         return _person == null
                 ? new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED)
                 : new ResponseEntity<>(personService.createNewPersonsAndDepartment(_person, depId), HttpStatus.CREATED);
+
+    }
+
+    @PostMapping("/create/{depId}/{postId}")
+    public ResponseEntity<Person> createPersonAndDepartmentAndPost(@RequestBody Person _person,
+                                                                   @PathVariable("depId") Long depId,
+                                                                   @PathVariable("postId") Long postId) {
+        return _person == null
+                ? new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED)
+                : new ResponseEntity<>(personService.createPersonAndDepartmentAndPost(_person, depId, postId), HttpStatus.CREATED);
 
     }
 
@@ -39,6 +49,7 @@ public class PersonController {
                 : new ResponseEntity<>(personService.createPersonAndPost(_person, posrId), HttpStatus.CREATED);
 
     }
+
     @PostMapping("/create/{personId}/person")
     public ResponseEntity<Person> createNewPerson(@RequestBody Person _person, @PathVariable("personId") Long personId) {
         return _person == null

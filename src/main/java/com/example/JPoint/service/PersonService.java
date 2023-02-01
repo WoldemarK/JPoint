@@ -33,16 +33,28 @@ public class PersonService {
         return personRepository.save(_person);
 
     }
+
     @Transactional
     public Person createNewPerson(@Validated Person _person, Long personId) {
         return personRepository.save(_person);
 
     }
+    @Transactional
+    public Person createPersonAndDepartmentAndPost(@Validated Person _person,
+                                                   Long personId,
+                                                   Long postId) {
+        _person.addDepartment(departmentRepository.findById(personId).get());
+        _person.addPost(postRepository.findById(postId).get());
+        return personRepository.save(_person);
+
+    }
+
     public Person getPersonsById(Long id) {
         return personRepository.findById(id)
                 .orElseThrow(() -> new AllException("Пользователя с " + id + " не существует"));
 
     }
+
     public List<Person> getAllPersons() {
         return personRepository.findAll();
 
@@ -83,6 +95,5 @@ public class PersonService {
     public List<Person> startStartingWithNames(String _name) {
         return personRepository.findByFirstNameIsStartingWith(_name);
     }
-
 
 }

@@ -22,9 +22,6 @@ public class Post {
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "custom")
-    private boolean isCustom;
-
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "person", referencedColumnName = "id")
