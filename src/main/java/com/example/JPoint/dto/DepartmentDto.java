@@ -1,15 +1,12 @@
 package com.example.JPoint.dto;
-
-import com.example.JPoint.model.User;
+import lombok.Builder;
 import lombok.Data;
-
-
 @Data
+@Builder
 public class DepartmentDto {
-    private  Long id;
+    private Long id;
     private String name;
     private String description;
-    private boolean custom;
-    private User user;
+    private Long peopleCount;
 
 }

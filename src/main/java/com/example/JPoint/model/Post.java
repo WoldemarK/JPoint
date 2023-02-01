@@ -1,15 +1,20 @@
 package com.example.JPoint.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "post")
 public class Post {
-    private static final String DIRECTOR = "DIRECTOR";
-    private static final String MANAGER = "MANAGER";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,15 +26,8 @@ public class Post {
     private boolean isCustom;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
-    private User user;
+    @JsonIgnore
+    @JoinColumn(name = "person", referencedColumnName = "id")
+    private Person person;
 
-    public Post(String name, String description, boolean isCustom) {
-        this.name = name;
-        this.description = description;
-        this.isCustom = isCustom;
-    }
-
-    public Post() {
-    }
 }

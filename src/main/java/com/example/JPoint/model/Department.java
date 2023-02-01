@@ -1,38 +1,37 @@
 package com.example.JPoint.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "department")
 public class Department {
-    private static final String SALES = "SALES";
-    private static final String IT = "IT";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
+    @NotBlank
     @Column(name = "description")
     private String description;
 
-    @Column(name = "custom")
-    private boolean custom;
+    @Column(name = "people_count")
+    private Long peopleCount;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
-    private User user;
+    @JsonIgnore
+    @JoinColumn(name = "person", referencedColumnName = "id")
+    private Person person;
 
-    public Department(String name, String description, boolean custom) {
-        this.name = name;
-        this.description = description;
-        this.custom = custom;
-    }
 
-    public Department() {
-    }
 }
