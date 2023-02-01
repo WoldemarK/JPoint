@@ -15,7 +15,7 @@ import java.util.List;
 public class PersonController {
     private final PersonService personService;
 
-    @GetMapping("/all")
+    @GetMapping("/get/all")
     public ResponseEntity<List<Person>> getAllPerson() {
         List<Person> people = personService.getAllPersons();
         if (people.isEmpty()) {
@@ -24,30 +24,14 @@ public class PersonController {
         return new ResponseEntity<>(people, HttpStatus.OK);
     }
 
-    @PostMapping("/create/{depId}/dep")
-    public ResponseEntity<Person> createPersonAndDepartment(@RequestBody Person _person, @PathVariable("depId") Long depId) {
-        return _person == null
-                ? new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED)
-                : new ResponseEntity<>(personService.createNewPersonsAndDepartment(_person, depId), HttpStatus.CREATED);
-
-    }
-
-    @PostMapping("/create/{depId}/{postId}")
+    @PostMapping("/create/{_depId}/{_postId}")
     public ResponseEntity<Person> createPersonAndDepartmentAndPost(@RequestBody Person _person,
-                                                                   @PathVariable("depId") Long depId,
-                                                                   @PathVariable("postId") Long postId) {
+                                                                   @PathVariable("_depId") Long _depId,
+                                                                   @PathVariable("_postId") Long _postId) {
         return _person == null
                 ? new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED)
-                : new ResponseEntity<>(personService.createPersonAndDepartmentAndPost(_person, depId, postId), HttpStatus.CREATED);
-
-    }
-
-    @PostMapping("/create/{postId}/post")
-    public ResponseEntity<Person> createPersonAndPost(@RequestBody Person _person, @PathVariable("postId") Long posrId) {
-        return _person == null
-                ? new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED)
-                : new ResponseEntity<>(personService.createPersonAndPost(_person, posrId), HttpStatus.CREATED);
-
+                : new ResponseEntity<>(personService.createPersonAndDepartmentAndPost(_person, _depId, _postId),
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/create/{personId}/person")
