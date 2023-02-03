@@ -1,5 +1,6 @@
 package com.example.JPoint.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -31,6 +35,12 @@ public class Task {
     private String name;
     @Column(name = "descriptions", length = 5000, nullable = false)
     private String descriptions;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "task_company",
+            joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
+    private List<Company> companies;
     @CreationTimestamp
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate creation;
@@ -39,5 +49,25 @@ public class Task {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate update;
 
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "task_company",
+            joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
+    private List<Company> company;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "person", referencedColumnName = "id")
+    private Person person;
 
+    public void addCompany(Company _company) {
+        if (this.companies == null)
+            this.companies = new ArrayList<>();
+        this.companies.add(_company);
+        _company.getTasks().add(this);
+    }
+
+    public void removeCompany(Company _company) {
+        this.companies.remove(_company);
+        _company.getTasks().remove(this);
+    }
 }

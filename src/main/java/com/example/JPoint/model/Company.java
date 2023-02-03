@@ -13,6 +13,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Data
@@ -44,6 +46,8 @@ public class Company {
     private String website;
     @Column(name = "inn")
     private Long INN;
+    @ManyToMany(mappedBy = "company")
+    private List<Task> tasks;
     @CreationTimestamp
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate creation;
@@ -54,5 +58,18 @@ public class Company {
 
     public Company() {
         this.INN = new Random().nextLong();
+    }
+
+    public void addTask(Task _task) {
+        if (this.tasks == null)
+            this.tasks = new ArrayList<>();
+        this.tasks.add(_task);
+        _task.getCompanies().add(this);
+
+    }
+
+    public void removeCompany(Task _task) {
+        this.tasks.remove(_task);
+        _task.getCompanies().remove(this);
     }
 }
