@@ -25,9 +25,12 @@ public class PersonController {
     }
 
     @PostMapping("/create/{_depId}/{_postId}")
-    public ResponseEntity<Person> createPersonAndDepartmentAndPost(@RequestBody Person _person,
-                                                                   @PathVariable("_depId") Long _depId,
-                                                                   @PathVariable("_postId") Long _postId) {
+    public ResponseEntity<Person> createPersonAndDepartmentAndPost
+            (
+                    @RequestBody Person _person,
+                    @PathVariable("_depId") Long _depId,
+                    @PathVariable("_postId") Long _postId
+            ) {
         return _person == null
                 ? new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED)
                 : new ResponseEntity<>(personService.createPersonAndDepartmentAndPost(_person, _depId, _postId),

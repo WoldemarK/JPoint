@@ -28,9 +28,9 @@ public class PersonService {
     }
     @Transactional
     public Person createPersonAndDepartmentAndPost(@Validated Person _person,
-                                                   Long personId,
+                                                   Long departmentId,
                                                    Long postId) {
-        _person.addDepartment(departmentRepository.findById(personId).get());
+        _person.addDepartment(departmentRepository.findById(departmentId).get());
         _person.addPost(postRepository.findById(postId).get());
         return personRepository.save(_person);
 
