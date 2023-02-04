@@ -64,12 +64,12 @@ public class Company {
         if (this.tasks == null)
             this.tasks = new ArrayList<>();
         this.tasks.add(_task);
-        _task.getCompanies().add(this);
+        _task.getCompany().add(this);
 
     }
 
     public void removeCompany(Task _task) {
         this.tasks.remove(_task);
-        _task.getCompanies().remove(this);
+        _task.getCompany().remove(this);
     }
 }

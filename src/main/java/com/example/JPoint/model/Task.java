@@ -29,18 +29,11 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Name should not be empty")
-    @Column(name = "name", length = 128, nullable = false)
-    @Size(min = 2, max = 128, message = "Name should be between 2 and 30 characters")
+
+    @Column(name = "name")
     private String name;
     @Column(name = "descriptions", length = 5000, nullable = false)
     private String descriptions;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "task_company",
-            joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
-    private List<Company> companies;
     @CreationTimestamp
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate creation;
@@ -54,20 +47,31 @@ public class Task {
             joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
     private List<Company> company;
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "person", referencedColumnName = "id")
-    private Person person;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "task_person",
+            joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
+    private List<Person> people;
 
     public void addCompany(Company _company) {
-        if (this.companies == null)
-            this.companies = new ArrayList<>();
-        this.companies.add(_company);
+        if (this.company == null)
+            this.company = new ArrayList<>();
+        this.company.add(_company);
         _company.getTasks().add(this);
     }
 
     public void removeCompany(Company _company) {
-        this.companies.remove(_company);
+        this.company.remove(_company);
         _company.getTasks().remove(this);
+    }
+    public void addPerson(Person _person) {
+        if (this.people == null)
+            this.people = new ArrayList<>();
+        this.people.add(_person);
+        _person.getTasks().add(this);
+    }
+    public void removePerson(Person _person){
+        this.people.remove(_person);
+
     }
 }

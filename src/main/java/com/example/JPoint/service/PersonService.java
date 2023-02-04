@@ -33,7 +33,6 @@ public class PersonService {
         _person.addDepartment(departmentRepository.findById(departmentId).get());
         _person.addPost(postRepository.findById(postId).get());
         return personRepository.save(_person);
-
     }
 
     public Person getPersonsById(Long id) {

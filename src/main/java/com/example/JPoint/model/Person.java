@@ -42,20 +42,18 @@ public class Person {
 
     @Column(name = "year_of_birth")
     private String birth;
-    @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
     @Email
     @Column(name = "email")
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "адрес почты должен заполнен корректно")
     private String email;
     @JsonProperty
     @Column(name = "is_active")
     private boolean isActive;
-    @NotEmpty(message = "Sex should not be empty")
-    @Column(name = "sex", nullable = false)
-    private char sex;
+    @Column(name = "sex")
+    private String sex;
     @CreationTimestamp
     @Column(name = "creation")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -68,7 +66,7 @@ public class Person {
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Department> departments;
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "people")
     private List<Task> tasks;
     @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Post> posts;
@@ -91,6 +89,6 @@ public class Person {
         if (this.tasks == null)
             this.tasks = new ArrayList<>();
         this.tasks.add(_task);
-        _task.setPerson(this);
+        _task.getPeople().remove(this);
     }
 }
