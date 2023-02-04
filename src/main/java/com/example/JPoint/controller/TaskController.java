@@ -32,9 +32,9 @@ public class TaskController {
     }
 
     @PostMapping("/addendum/person/{personId}")
-    public ResponseEntity<Task> addendumPerson(@RequestBody Task _task, @PathVariable("personId") Long personId) {
+    public ResponseEntity<Task> addendumPerson(@RequestBody Task _task, @PathVariable("personId") Long userId) {
         return _task == null
                 ? new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED)
-                : new ResponseEntity<>(taskService.addendumPerson(_task, personId), HttpStatus.CREATED);
+                : new ResponseEntity<>(taskService.addendumPerson(_task, userId), HttpStatus.CREATED);
     }
 }

@@ -1,24 +1,24 @@
 package com.example.JPoint.mapper;
 import com.example.JPoint.dto.PersonDto;
-import com.example.JPoint.model.Person;
+import com.example.JPoint.model.User;
 import org.springframework.stereotype.Component;
 @Component
 public class PersonMapper {
 
-    public PersonDto convertPersonToDto(Person person) {
+    public PersonDto convertPersonToDto(User user) {
         return PersonDto.builder()
-                .id(person.getId())
-                .login(person.getLogin())
-                .password(person.getPassword())
-                .firstName(person.getFirstName())
-                .lastName(person.getLastName())
-                .birth(person.getBirth())
-                .phoneNumber(person.getPhoneNumber())
-                .email(person.getEmail())
+                .id(user.getId())
+                .login(user.getLogin())
+                .password(user.getPassword())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .birth(user.getBirth())
+                .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
                 .build();
     }
-    public Person convertDtoToPerson(PersonDto dto) {
-        return Person.builder()
+    public User convertDtoToPerson(PersonDto dto) {
+        return User.builder()
                 .id(dto.getId())
                 .login(dto.getLogin())
                 .password(dto.getPassword())

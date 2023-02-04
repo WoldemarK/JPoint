@@ -1,6 +1,5 @@
 package com.example.JPoint.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,12 +9,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -51,7 +47,7 @@ public class Task {
     @JoinTable(name = "task_person",
             joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
-    private List<Person> people;
+    private List<User> users;
 
     public void addCompany(Company _company) {
         if (this.company == null)
@@ -64,14 +60,14 @@ public class Task {
         this.company.remove(_company);
         _company.getTasks().remove(this);
     }
-    public void addPerson(Person _person) {
-        if (this.people == null)
-            this.people = new ArrayList<>();
-        this.people.add(_person);
-        _person.getTasks().add(this);
+    public void addPerson(User _user) {
+        if (this.users == null)
+            this.users = new ArrayList<>();
+        this.users.add(_user);
+        _user.getTasks().add(this);
     }
-    public void removePerson(Person _person){
-        this.people.remove(_person);
+    public void removePerson(User _user){
+        this.users.remove(_user);
 
     }
 }

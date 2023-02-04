@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "person")
-public class Person {
+public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,31 +64,31 @@ public class Person {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate update;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Department> departments;
-    @ManyToMany(mappedBy = "people")
+    @ManyToMany(mappedBy = "users")
     private List<Task> tasks;
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Post> posts;
 
     public void addDepartment(Department _department) {
         if (this.departments == null)
             this.departments = new ArrayList<>();
         this.departments.add(_department);
-        _department.setPerson(this);
+        _department.setUser(this);
     }
 
     public void addPost(Post _post) {
         if (this.posts == null)
             this.posts = new ArrayList<>();
         this.posts.add(_post);
-        _post.setPerson(this);
+        _post.setUser(this);
     }
 
     public void addTask(Task _task) {
         if (this.tasks == null)
             this.tasks = new ArrayList<>();
         this.tasks.add(_task);
-        _task.getPeople().remove(this);
+        _task.getUsers().remove(this);
     }
 }

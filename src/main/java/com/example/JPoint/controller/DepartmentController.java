@@ -34,9 +34,11 @@ public class DepartmentController {
         return new ResponseEntity<>(_departments, HttpStatus.OK);
     }
 
-    @GetMapping("/departments{id}")
-    public ResponseEntity<Optional<Department>> getDepartmentById(@PathVariable Long id) {
-        return new ResponseEntity<>(service.getDepartmentId(id), HttpStatus.OK);
+    @GetMapping("/departments{departmentId}")
+    public ResponseEntity<Optional<Department>> getDepartmentById(
+            @PathVariable("departmentId") Long departmentId
+    ) {
+        return new ResponseEntity<>(service.getDepartmentId(departmentId), HttpStatus.OK);
     }
 
     @GetMapping("/name")

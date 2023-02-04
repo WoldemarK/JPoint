@@ -1,8 +1,6 @@
 package com.example.JPoint.mapper;
 
-import com.example.JPoint.dto.PersonDto;
 import com.example.JPoint.dto.PostDto;
-import com.example.JPoint.model.Person;
 import com.example.JPoint.model.Post;
 import org.springframework.stereotype.Component;
 

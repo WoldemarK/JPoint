@@ -25,6 +25,6 @@ public class Post {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "person", referencedColumnName = "id")
-    private Person person;
+    private User user;
 
 }

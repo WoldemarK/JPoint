@@ -49,7 +49,7 @@ public class DepartmentService {
         Department dep = getDepartmentId(id).get();
         dep.setName(department.getName());
         dep.setDescription(department.getDescription());
-        dep.setPerson(department.getPerson());
+        dep.setUser(department.getUser());
         departmentRepository.save(dep);
     }
 
