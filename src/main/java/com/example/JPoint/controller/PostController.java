@@ -16,7 +16,7 @@ import java.util.Optional;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping("/create")
+    @PostMapping("/create/new/post")
     public ResponseEntity<Post> createNewPost(@RequestBody Post _post) {
         return _post == null
                 ? new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED)
@@ -28,12 +28,23 @@ public class PostController {
         return postService.getPostById(_postId);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/get/all/post")
     public ResponseEntity<List<Post>> getAllPost() {
         List<Post> posts = postService.getAllPost();
         if (posts.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long _postId) {
+        postService.deleteId(_postId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/update/{postId}")
+    public void update(@RequestBody Post post, @PathVariable("postId") Long postId) {
+        postService.updatePosts(post, postId);
     }
 }

@@ -24,7 +24,6 @@ public class Department {
     @NotBlank
     @Column(name = "description")
     private String description;
-
     @Column(name = "people_count")
     private Long peopleCount;
 

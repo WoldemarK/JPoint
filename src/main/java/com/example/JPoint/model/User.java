@@ -17,17 +17,17 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "person")
+@Table(name = "users")
 public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "login")
+    @Column(name = "login",length = 64, nullable = false, unique = true)
     private String login;
 
-    @Column(name = "password")
+    @Column(name = "password",length = 128, nullable = false, unique = true)
     private String password;
 
     @NotEmpty(message = "Name should not be empty")
@@ -47,7 +47,7 @@ public class User {
     private String phoneNumber;
 
     @Email
-    @Column(name = "email")
+    @Column(name = "email",length = 32, nullable = false, unique = true)
     private String email;
     @JsonProperty
     @Column(name = "is_active")
@@ -70,6 +70,9 @@ public class User {
     private List<Task> tasks;
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Post> posts;
+    @ManyToOne
+    @JoinColumn(name = "authority_id", referencedColumnName = "id")
+    private Authority authority;
 
     public void addDepartment(Department _department) {
         if (this.departments == null)

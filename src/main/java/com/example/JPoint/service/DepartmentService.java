@@ -18,7 +18,7 @@ public class DepartmentService {
 
     @Transactional
     public Department createDepartments(@Validated Department _department) {
-        List<Department> departmentList = getAllDepartments();
+        List<Department> departmentList = departmentRepository.findAll();
         for (Department department : departmentList)
             if (department.getName().equalsIgnoreCase(_department.getName()))
                 throw new AllException("Создаваемый департамент существует " + department.getName());
@@ -45,8 +45,8 @@ public class DepartmentService {
     }
 
     @Transactional
-    public void updateDepartments(@Validated Department department, Long id) {
-        Department dep = getDepartmentId(id).get();
+    public void updateDepartments(@Validated Department department, Long departmentId) {
+        Department dep = departmentRepository.findById(departmentId).get();
         dep.setName(department.getName());
         dep.setDescription(department.getDescription());
         dep.setUser(department.getUser());

@@ -26,8 +26,8 @@ public class Task {
     private Long id;
 
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title", length = 128, nullable = false)
+    private String title;
     @Column(name = "descriptions", length = 5000, nullable = false)
     private String descriptions;
     @CreationTimestamp
@@ -44,9 +44,9 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
     private List<Company> company;
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "task_person",
+    @JoinTable(name = "task_user",
             joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private List<User> users;
 
     public void addCompany(Company _company) {
@@ -60,11 +60,12 @@ public class Task {
         this.company.remove(_company);
         _company.getTasks().remove(this);
     }
-    public void addPerson(User _user) {
+    public void addUser(User _user) {
         if (this.users == null)
             this.users = new ArrayList<>();
         this.users.add(_user);
         _user.getTasks().add(this);
+
     }
     public void removePerson(User _user){
         this.users.remove(_user);

@@ -74,17 +74,18 @@ public class JPointApplication {
 //                    .build());
 //        };
 //    }
-    @Bean
-    public CommandLineRunner addTask(TaskRepository taskRepository) {
-        return args -> {
-            taskRepository.save(Task.builder()
-                    .name("Фича")
-                    .descriptions("Написать новый функционал")
-                    .build());
-            taskRepository.save(Task.builder()
-                    .name("Документы")
-                    .descriptions("Подготовить к проектную документацию")
-                    .build());
-        };
-    }
+//    @Bean
+//    public CommandLineRunner addTask(TaskRepository taskRepository) {
+//        return args -> {
+//            taskRepository.save(Task.builder()
+//                    .title("Фича")
+//                    .descriptions("Написать новый функционал")
+//                    .build());
+//            taskRepository.save(Task.builder()
+//                    .title("Документы")
+//                    .descriptions("Подготовить к проектную документацию")
+//                    .build());
+//        };
+//    }
+
 }

@@ -1,6 +1,8 @@
 package com.example.JPoint.service;
 
 import com.example.JPoint.exception.AllException;
+import com.example.JPoint.model.Department;
+import com.example.JPoint.model.Post;
 import com.example.JPoint.model.User;
 import com.example.JPoint.repository.DepartmentRepository;
 import com.example.JPoint.repository.UserRepository;
@@ -26,10 +28,11 @@ public class UserService {
         return userRepository.save(_user);
 
     }
+
     @Transactional
     public User createUserAndDepartmentAndPost(@Validated User _user,
-                                                 Long departmentId,
-                                                 Long postId) {
+                                               Long departmentId,
+                                               Long postId) {
         _user.addDepartment(departmentRepository.findById(departmentId).get());
         _user.addPost(postRepository.findById(postId).get());
         return userRepository.save(_user);
@@ -82,4 +85,19 @@ public class UserService {
         return userRepository.findByFirstNameIsStartingWith(_name);
     }
 
+    @Transactional
+    public User getS(@Validated User user, Long userId, Long depId, Long postId) {
+        Long users = userRepository.findById(userId).get().getId();
+
+        Department department = departmentRepository.findById(depId).get();
+        department.setUser(user);
+        departmentRepository.save(department);
+
+        Post post = postRepository.findById(postId).get();
+        post.setUser(user);
+        postRepository.save(post);
+
+        return userRepository.save(user);
+
+    }
 }

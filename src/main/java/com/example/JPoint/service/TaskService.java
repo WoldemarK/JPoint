@@ -37,8 +37,14 @@ public class TaskService {
     }
 
     @Transactional
-    public Task addendumPerson(@Validated Task _task, Long userId) {
-        _task.addPerson(userRepository.findById(userId).get());
+    public Task addendumUser(@Validated Task _task, Long userId) {
+        _task.addUser(userRepository.findById(userId).get());
         return taskRepository.save(_task);
     }
+
+    public Optional<Task> getTaskId(Long taskId) {
+        return taskRepository.findById(taskId);
+    }
+
+
 }

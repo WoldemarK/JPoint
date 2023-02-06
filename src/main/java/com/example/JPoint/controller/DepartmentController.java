@@ -17,7 +17,7 @@ import java.util.Optional;
 public class DepartmentController {
     private final DepartmentService service;
 
-    @PostMapping("/create/name")
+    @PostMapping("/create/new/departments")
     public ResponseEntity<Department> createDepartments(@RequestBody Department _department) {
         return _department == null
                 ? new ResponseEntity<>(HttpStatus.BAD_REQUEST)
@@ -34,21 +34,19 @@ public class DepartmentController {
         return new ResponseEntity<>(_departments, HttpStatus.OK);
     }
 
-    @GetMapping("/departments{departmentId}")
-    public ResponseEntity<Optional<Department>> getDepartmentById(
-            @PathVariable("departmentId") Long departmentId
-    ) {
+    @GetMapping("/departments/{departmentId}")
+    public ResponseEntity<Optional<Department>> getDepartmentById(@PathVariable("departmentId") Long departmentId) {
         return new ResponseEntity<>(service.getDepartmentId(departmentId), HttpStatus.OK);
     }
 
-    @GetMapping("/name")
-    public ResponseEntity<List<Department>> getNames(String name) {
+    @GetMapping("/search/name")
+    public ResponseEntity<List<Department>> searchNames(@RequestParam String name) {
         return new ResponseEntity<>(service.getDepartmentsName(name), HttpStatus.OK);
 
     }
 
-    @GetMapping("/start_name")
-    public ResponseEntity<List<Department>> getStartNames(String name) {
+    @GetMapping("/search/start_name")
+    public ResponseEntity<List<Department>> searchStartNames(@RequestParam String name) {
         return new ResponseEntity<>(service.startStartingWithNames(name), HttpStatus.OK);
     }
 
