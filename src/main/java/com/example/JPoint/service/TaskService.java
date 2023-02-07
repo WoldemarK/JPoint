@@ -2,6 +2,7 @@ package com.example.JPoint.service;
 
 import com.example.JPoint.exception.AllException;
 import com.example.JPoint.model.Task;
+import com.example.JPoint.model.User;
 import com.example.JPoint.repository.UserRepository;
 import com.example.JPoint.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,11 +37,13 @@ public class TaskService {
         throw new AllException("Задача с " + taskId + " не найдена");
     }
 
-    @Transactional
-    public Task addendumUser(@Validated Task _task, Long userId) {
-        _task.addUser(userRepository.findById(userId).get());
-        return taskRepository.save(_task);
-    }
+/*    @Transactional
+    public Task applyUsers(Long taskId, Long userId) {
+        Task task = taskRepository.findById(taskId).get();
+        User user = userRepository.findById(userId).get();
+
+        return taskRepository.save(task);
+    }*/
 
     public Optional<Task> getTaskId(Long taskId) {
         return taskRepository.findById(taskId);
