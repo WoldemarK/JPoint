@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,10 +29,10 @@ public class UserController {
 
     @PostMapping("/create/{_depId}/{_postId}")
     public ResponseEntity<User> createPersonAndDepartmentAndPost(
-                    @RequestBody User _user,
-                    @PathVariable("_depId") Long _depId,
-                    @PathVariable("_postId") Long _postId
-            ) {
+            @RequestBody User _user,
+            @PathVariable("_depId") Long _depId,
+            @PathVariable("_postId") Long _postId
+    ) {
         return _user == null
                 ? new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED)
                 : new ResponseEntity<>(userService.createUserAndDepartmentAndPost(_user, _depId, _postId),
@@ -49,6 +50,13 @@ public class UserController {
     @GetMapping("/get/{id}")
     public User getPersonById(@PathVariable("id") Long id) {
         return userService.getUsersById(id);
+    }
+
+    @PutMapping("/put/{userId}/{postId}")
+    public ResponseEntity<Optional<User>> applayPost(
+            @PathVariable("userId") Long userId,
+            @PathVariable("postId") Long postId) {
+        return new ResponseEntity<>(userService.applyPost(userId, postId), HttpStatus.CREATED);
     }
 
 }

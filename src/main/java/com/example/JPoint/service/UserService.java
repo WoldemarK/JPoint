@@ -1,7 +1,6 @@
 package com.example.JPoint.service;
 
 import com.example.JPoint.exception.AllException;
-import com.example.JPoint.model.Department;
 import com.example.JPoint.model.Post;
 import com.example.JPoint.model.User;
 import com.example.JPoint.repository.DepartmentRepository;
@@ -15,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -26,7 +24,6 @@ public class UserService {
     @Transactional
     public User createNewUser(@Validated User _user) {
         return userRepository.save(_user);
-
     }
 
     @Transactional
@@ -41,12 +38,10 @@ public class UserService {
     public User getUsersById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new AllException("Пользователя с " + id + " не существует"));
-
     }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
-
     }
 
     @Transactional
@@ -64,7 +59,6 @@ public class UserService {
         _users.setDepartments(user.getDepartments());
         _users.setPosts(user.getPosts());
         userRepository.save(_users);
-
 
     }
 
@@ -85,4 +79,12 @@ public class UserService {
         return userRepository.findByFirstNameIsStartingWith(_name);
     }
 
+    public Optional<User> applyPost(Long userId, Long postId) {
+        User user = userRepository.findById(userId).get();
+        Post post = postRepository.findById(postId).get();
+        user.getPosts().add(post);
+        post.setUser(user);
+        postRepository.save(post);
+        return Optional.of(userRepository.save(user));
+    }
 }
