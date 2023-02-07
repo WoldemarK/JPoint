@@ -1,7 +1,6 @@
 package com.example.JPoint.controller;
 
 import com.example.JPoint.model.User;
-import com.example.JPoint.repository.PostRepository;
 import com.example.JPoint.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import java.util.Optional;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
-    private final PostRepository postRepository;
 
     @GetMapping("/get/all")
     public ResponseEntity<List<User>> getAllPerson() {
@@ -52,11 +50,28 @@ public class UserController {
         return userService.getUsersById(id);
     }
 
-    @PutMapping("/put/{userId}/{postId}")
-    public ResponseEntity<Optional<User>> applayPost(
-            @PathVariable("userId") Long userId,
-            @PathVariable("postId") Long postId) {
+    @PutMapping("/post/{userId}/{postId}")
+    public ResponseEntity<Optional<User>> applyPost(@PathVariable("userId") Long userId,
+                                                    @PathVariable("postId") Long postId) {
         return new ResponseEntity<>(userService.applyPost(userId, postId), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/dep/{userId}/{depId}")
+    public ResponseEntity<Optional<User>> applyDepartments
+            (
+                    @PathVariable("userId") Long userId,
+                    @PathVariable("depId") Long depId) {
+        return new ResponseEntity<>(userService.applyDepartments(userId, depId), HttpStatus.OK);
+    }
+
+    @PutMapping("/dep/{userId}/{depId}/{postId}")
+    public ResponseEntity<Optional<User>> applyDepartmentsAddPast
+            (
+                    @PathVariable("userId") Long userId,
+                    @PathVariable("depId") Long depId,
+                    @PathVariable("postId") Long postId) {
+        return new ResponseEntity<>(userService.applyDepartmentsAddPast(userId, depId, postId),
+                HttpStatus.OK);
     }
 
 }

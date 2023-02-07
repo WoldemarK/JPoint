@@ -1,6 +1,7 @@
 package com.example.JPoint.service;
 
 import com.example.JPoint.exception.AllException;
+import com.example.JPoint.model.Department;
 import com.example.JPoint.model.Post;
 import com.example.JPoint.model.User;
 import com.example.JPoint.repository.DepartmentRepository;
@@ -82,8 +83,30 @@ public class UserService {
     public Optional<User> applyPost(Long userId, Long postId) {
         User user = userRepository.findById(userId).get();
         Post post = postRepository.findById(postId).get();
-        user.getPosts().add(post);
-        post.setUser(user);
+//        user.getPosts().add(post);
+//        post.setUser(user);
+        user.addPost(post);
+        postRepository.save(post);
+        return Optional.of(userRepository.save(user));
+    }
+
+    public Optional<User> applyDepartments(Long userId, Long depId) {
+        User user = userRepository.findById(userId).get();
+        Department department = departmentRepository.findById(depId).get();
+//        user.getDepartments().add(department);
+//        department.setUser(user);
+        user.addDepartment(department);
+        departmentRepository.save(department);
+        return Optional.of(userRepository.save(user));
+    }
+
+    public Optional<User> applyDepartmentsAddPast(Long userId, Long depId,Long postId) {
+        User user = userRepository.findById(userId).get();
+        Department department = departmentRepository.findById(depId).get();
+        Post post = postRepository.findById(postId).get();
+        user.addDepartment(department);
+        departmentRepository.save(department);
+        user.addPost(post);
         postRepository.save(post);
         return Optional.of(userRepository.save(user));
     }

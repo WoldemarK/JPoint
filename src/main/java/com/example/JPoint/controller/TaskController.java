@@ -15,6 +15,7 @@ import java.util.Optional;
 @RequestMapping("/api/task")
 public class TaskController {
     private final TaskService taskService;
+
     @GetMapping("/get/all")
     public ResponseEntity<List<Task>> getAllTask() {
         return new ResponseEntity<>(taskService.getAllTask(), HttpStatus.OK);
@@ -39,7 +40,7 @@ public class TaskController {
     }
 
     @GetMapping("/get/{taskId}")
-    public ResponseEntity<Optional<Task>> getById(@PathVariable("taskId") Long _taskId) {
-        return new ResponseEntity<>( taskService.getTaskId(_taskId),HttpStatus.NO_CONTENT);
+    public ResponseEntity<Task> getById(@PathVariable("taskId") Long _taskId) {
+        return new ResponseEntity<>(taskService.getTaskId(_taskId).get(), HttpStatus.OK);
     }
 }

@@ -64,7 +64,7 @@ public class Task {
         if (this.users == null)
             this.users = new ArrayList<>();
         this.users.add(_user);
-        _user.getTasks().add(this);
+      //  _user.getTasks().add(this);
 
     }
     public void removePerson(User _user){
