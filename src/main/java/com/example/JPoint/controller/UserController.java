@@ -50,11 +50,5 @@ public class UserController {
     public User getPersonById(@PathVariable("id") Long id) {
         return userService.getUsersById(id);
     }
-    @PostMapping("/post/{userId}/{dapId}/{postId}")
-    public User Dd(@RequestBody User user,
-                   @PathVariable("userId")Long userId,
-                   @PathVariable("depId")Long dapId,
-                   @PathVariable("postId")Long postId){
-    return userService.getS(user,userId,dapId,postId);
-    }
+
 }

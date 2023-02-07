@@ -85,19 +85,4 @@ public class UserService {
         return userRepository.findByFirstNameIsStartingWith(_name);
     }
 
-    @Transactional
-    public User getS(@Validated User user, Long userId, Long depId, Long postId) {
-        Long users = userRepository.findById(userId).get().getId();
-
-        Department department = departmentRepository.findById(depId).get();
-        department.setUser(user);
-        departmentRepository.save(department);
-
-        Post post = postRepository.findById(postId).get();
-        post.setUser(user);
-        postRepository.save(post);
-
-        return userRepository.save(user);
-
-    }
 }
