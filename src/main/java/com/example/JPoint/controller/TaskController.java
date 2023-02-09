@@ -32,11 +32,11 @@ public class TaskController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/apply/user/{taskId}/{userId}")
-    public ResponseEntity<Task> applyUsers(@PathVariable("taskId") Long taskId,
-                                           @PathVariable("userId") Long userId) {
-        return new ResponseEntity<>(taskService.addendumUser(taskId,userId), HttpStatus.CREATED);
-    }
+//    @PostMapping("/apply/user/{taskId}/{userId}")
+//    public ResponseEntity<Task> applyUsers(@PathVariable("taskId") Long taskId,
+//                                           @PathVariable("userId") Long userId) {
+//        return new ResponseEntity<>(taskService.addendumUser(taskId,userId), HttpStatus.CREATED);
+//    }
 
     @GetMapping("/get/{taskId}")
     public ResponseEntity<Task> getById(@PathVariable("taskId") Long _taskId) {
