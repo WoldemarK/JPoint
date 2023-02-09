@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,11 +31,11 @@ public class TaskController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-//    @PostMapping("/apply/user/{taskId}/{userId}")
-//    public ResponseEntity<Task> applyUsers(@PathVariable("taskId") Long taskId,
-//                                           @PathVariable("userId") Long userId) {
-//        return new ResponseEntity<>(taskService.addendumUser(taskId,userId), HttpStatus.CREATED);
-//    }
+    @PutMapping ("/apply/user/{taskId}/{userId}")
+    public ResponseEntity<Task> applyUsers(@PathVariable("taskId") Long taskId,
+                                           @PathVariable("userId") Long userId) {
+        return new ResponseEntity<>(taskService.applyUsers(taskId, userId), HttpStatus.OK);
+    }
 
     @GetMapping("/get/{taskId}")
     public ResponseEntity<Task> getById(@PathVariable("taskId") Long _taskId) {

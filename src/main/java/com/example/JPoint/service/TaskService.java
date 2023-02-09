@@ -37,13 +37,14 @@ public class TaskService {
         throw new AllException("Задача с " + taskId + " не найдена");
     }
 
-/*    @Transactional
+   @Transactional
     public Task applyUsers(Long taskId, Long userId) {
         Task task = taskRepository.findById(taskId).get();
         User user = userRepository.findById(userId).get();
-
+        task.addUser(user);
+        userRepository.save(user);
         return taskRepository.save(task);
-    }*/
+    }
 
     public Optional<Task> getTaskId(Long taskId) {
         return taskRepository.findById(taskId);

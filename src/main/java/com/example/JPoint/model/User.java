@@ -66,8 +66,8 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Department> departments;
-    @ManyToMany(mappedBy = "users")
-    private List<Task> tasks;
+//    @ManyToMany(mappedBy = "users")
+//    private List<Task> tasks;
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Post> posts;
     @ManyToOne
@@ -88,11 +88,11 @@ public class User {
         _post.setUser(this);
     }
 
-    public void addTask(Task _task) {
-        if (this.tasks == null)
-            this.tasks = new ArrayList<>();
-        this.tasks.add(_task);
-        _task.getUsers().remove(this);
-    }
+//    public void addTask(Task _task) {
+//        if (this.tasks == null)
+//            this.tasks = new ArrayList<>();
+//        this.tasks.add(_task);
+//        _task.getUsers().remove(this);
+//    }
 
 }

@@ -40,13 +40,13 @@ public class Task {
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "task_company",
-            joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "company_id"))
     private List<Company> company;
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "task_user",
-            joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
     public void addCompany(Company _company) {
@@ -64,7 +64,7 @@ public class Task {
         if (this.users == null)
             this.users = new ArrayList<>();
         this.users.add(_user);
-      //  _user.getTasks().add(this);
+   //  _user.getTasks().add(this);
 
     }
     public void removePerson(User _user){
