@@ -41,8 +41,8 @@ public class TaskService {
     public Task applyUsers(Long taskId, Long userId) {
         Task task = taskRepository.findById(taskId).get();
         User user = userRepository.findById(userId).get();
-        task.addUser(user);
-        userRepository.save(user);
+
+        task.addUser(user); userRepository.save(user);
         return taskRepository.save(task);
     }
 
