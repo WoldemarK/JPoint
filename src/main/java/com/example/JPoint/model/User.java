@@ -66,8 +66,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Department> departments;
-//    @ManyToMany(mappedBy = "users")
-//    private List<Task> tasks;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Post> posts;
     @ManyToOne

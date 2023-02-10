@@ -68,8 +68,4 @@ public class Company {
 
     }
 
-    public void removeCompany(Task _task) {
-        this.tasks.remove(_task);
-        _task.getCompany().remove(this);
-    }
 }

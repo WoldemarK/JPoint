@@ -1,0 +1,15 @@
+package com.example.JPoint.dto;
+
+import lombok.Builder;
+import lombok.Data;
+import java.time.LocalDate;
+
+@Data
+@Builder
+public class TaskDto {
+    private Long id;
+    private String name;
+    private String descriptions;
+    private LocalDate creation;
+    private LocalDate update;
+}

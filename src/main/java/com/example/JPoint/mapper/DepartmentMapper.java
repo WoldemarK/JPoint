@@ -1,4 +1,5 @@
 package com.example.JPoint.mapper;
+
 import com.example.JPoint.dto.DepartmentDto;
 import com.example.JPoint.model.Department;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ public class DepartmentMapper {
         return DepartmentDto.builder()
                 .id(department.getId())
                 .name(department.getName())
+                .description(department.getDescription())
                 .peopleCount(department.getPeopleCount())
                 .build();
 

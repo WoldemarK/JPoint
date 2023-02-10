@@ -43,6 +43,7 @@ public class Task {
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "company_id"))
     private List<Company> company;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "task_user",
             joinColumns = @JoinColumn(name = "task_id"),
@@ -56,19 +57,12 @@ public class Task {
         _company.getTasks().add(this);
     }
 
-    public void removeCompany(Company _company) {
-        this.company.remove(_company);
-        _company.getTasks().remove(this);
-    }
+
     public void addUser(User _user) {
         if (this.users == null)
             this.users = new ArrayList<>();
         this.users.add(_user);
-   //  _user.getTasks().add(this);
 
     }
-    public void removePerson(User _user){
-        this.users.remove(_user);
 
-    }
 }
