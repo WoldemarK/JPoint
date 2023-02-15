@@ -28,9 +28,7 @@ public class UserService {
     }
 
     @Transactional
-    public User createUserAndDepartmentAndPost(@Validated User _user,
-                                               Long departmentId,
-                                               Long postId) {
+    public User createUserAndDepartmentAndPost(@Validated User _user, Long departmentId, Long postId) {
         _user.addDepartment(departmentRepository.findById(departmentId).get());
         _user.addPost(postRepository.findById(postId).get());
         return userRepository.save(_user);

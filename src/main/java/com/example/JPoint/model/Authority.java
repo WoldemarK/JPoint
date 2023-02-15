@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,5 +23,6 @@ public class Authority {
     private String authority;
 
     @OneToMany(mappedBy = "authority")
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     private List<User> user;
 }

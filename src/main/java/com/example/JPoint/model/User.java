@@ -2,6 +2,7 @@ package com.example.JPoint.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -64,10 +65,12 @@ public class User {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate update;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     private List<Department> departments;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     private List<Post> posts;
     @ManyToOne
     @JoinColumn(name = "authority_id", referencedColumnName = "id")

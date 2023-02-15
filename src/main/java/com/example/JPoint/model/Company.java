@@ -64,7 +64,7 @@ public class Company {
         if (this.tasks == null)
             this.tasks = new ArrayList<>();
         this.tasks.add(_task);
-        _task.getCompany().add(this);
+
 
     }
 

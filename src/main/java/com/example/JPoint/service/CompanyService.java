@@ -21,8 +21,10 @@ public class CompanyService {
 
 
     public void updateCompany(@Validated Company _company, Long _companyId) {
-        Company comp = companyRepository.findById(_companyId)
+        Company comp = companyRepository
+                .findById(_companyId)
                 .orElseThrow(() -> new AllException("Компания с ID " + _company.getId() + " не найдена"));
+
         comp.setId(_company.getId());
         comp.setName(_company.getName());
         comp.setEmail(_company.getEmail());
@@ -33,6 +35,7 @@ public class CompanyService {
         comp.setINN(_company.getINN());
         comp.setCreation(_company.getCreation());
         comp.setUpdate(_company.getUpdate());
+
         companyRepository.save(comp);
     }
 
